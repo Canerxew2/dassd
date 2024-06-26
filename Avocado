@@ -1,0 +1,2 @@
+local rootPart = game.Players.LocalPlayer.Character.HumanoidRootPart
+rootPart.CFrame = game.Workspace.Garden.Rooms.Room2.OldSpawner.CFrame
