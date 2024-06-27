@@ -1,0 +1,22 @@
+local rootPart = game.Players.LocalPlayer.Character.HumanoidRootPart
+local rooms = {"Room1", "Room2", "Room3", "Room4"}
+local found = false
+
+for _, roomName in ipairs(rooms) do
+    local room = game.Workspace.Garden.Rooms[roomName]
+    if room and room.OldSpawner then
+        local carrots = room.OldSpawner:FindFirstChild("Carrots")
+        if carrots then
+            local targetCFrame = room.OldSpawner.CFrame
+            -- Yüksekliği artırmak için Y değerini artırın (örneğin +5 birim)
+            targetCFrame = targetCFrame + Vector3.new(0, 5, 0)
+            rootPart.CFrame = targetCFrame
+            found = true
+            break
+        end
+    end
+end
+
+if not found then
+    print("Carrots not found in any room")
+end
