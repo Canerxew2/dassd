@@ -1,0 +1,69 @@
+-- LocalPlayer'ın DisplayName'ini büyük harflerle al
+local localPlayerDisplayName = string.upper(game.Players.LocalPlayer.DisplayName)
+
+-- LocalPlayer'ın normal ismini büyük harflerle al
+local localPlayerName = string.upper(game.Players.LocalPlayer.Name)
+
+-- game.Workspace içindeki Kitchen dosyasını bul
+local kitchen = game.Workspace:FindFirstChild("Kitchen")
+if kitchen then
+    -- Kitchen içindeki WorkstationSpawns dosyasını bul
+    local workstationSpawns = kitchen:FindFirstChild("WorkstationSpawns")
+    if workstationSpawns then
+        -- Doğru eşleşmeyi bulduktan sonra işlemi bitirmek için bir flag tanımlayalım
+        local foundMatch = false
+        
+        -- WorkstationSpawns içindeki her Workstation'ı kontrol et
+        for i = 1, 8 do
+            local workstation = workstationSpawns:FindFirstChild("Workstation" .. i)
+            if workstation then
+                -- Workstation içindeki child sayısını kontrol et
+                local children = workstation:GetChildren()
+                if #children == 1 then
+                    local model = children[1]
+                    -- Model içindeki Sign nesnesini bul
+                    local sign = model:FindFirstChild("Sign")
+                    if sign then
+                        -- Sign'in parent'ını alarak, aynı parenta sahip "Sign" bloğunu bul
+                        local signBlock = sign:FindFirstChild("Sign")
+                        if signBlock then
+                            -- Sign bloğunun içindeki BackGui'yi bul
+                            local backGui = signBlock:FindFirstChild("BackGui")
+                            if backGui then
+                                -- BackGui içindeki TextLabel'i bul
+                                local textLabel = backGui:FindFirstChild("TextLabel")
+                                if textLabel then
+                                    -- TextLabel'in Text değerini büyük harflerle al
+                                    local labelText = string.upper(textLabel.Text)
+                                    -- LocalPlayer'ın DisplayName'i veya normal ismi ile karşılaştır
+                                    if labelText == localPlayerDisplayName or labelText == localPlayerName then
+                                        -- Eşleşme bulunduğunda Workstation'un adını konsola yazdır
+                                        print("Eşleşme bulundu:", workstation.Name)
+                                        
+                                        -- Doğru eşleşen Workstation'ın içindeki "Spawn" bloğunu bul
+                                        local spawnBlock = model:FindFirstChild("Spawn")
+                                        if spawnBlock then
+                                            -- Spawn bloğunun CFrame'ini al ve LocalPlayer'ı oraya ışınla
+                                            game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = spawnBlock.CFrame
+                                            print("LocalPlayer ışınlandı:", spawnBlock.Name)
+                                        else
+                                            print("Spawn bloğu bulunamadı.")
+                                        end
+                                        
+                                        foundMatch = true
+                                        break  -- işlem tamamlandıktan sonra döngüden çık
+                                    end
+                                end
+                            end
+                        end
+                    end
+                end
+            end
+        end
+        
+        -- Eğer hiçbir eşleşme bulunamadıysa
+        if not foundMatch then
+            print("Eşleşme bulunamadı.")
+        end
+    end
+end
