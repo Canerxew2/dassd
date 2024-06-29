@@ -38,7 +38,7 @@ if kitchen then
                                
                                     if labelText == localPlayerDisplayName or labelText == localPlayerName then
                                    
-                                        print("Eşleşme bulundu:", workstation.Name)
+                                        print("Matching found:", workstation.Name)
                                         
                                      
                                         local spawnBlock = model:FindFirstChild("Spawn")
