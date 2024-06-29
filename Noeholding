@@ -1,0 +1,22 @@
+local character = player.Character or player.CharacterAdded:Wait()
+local workspace = game.Workspace
+
+
+local function updateProximityPrompts(parent)
+    for _, obj in pairs(parent:GetDescendants()) do
+        if obj:IsA("ProximityPrompt") or obj.Name == "FinishedProximityPrompt" then
+            obj.HoldDuration = 0
+        end
+    end
+end
+
+
+updateProximityPrompts(workspace)
+updateProximityPrompts(character)
+
+
+workspace.DescendantAdded:Connect(function(descendant)
+    if descendant:IsA("ProximityPrompt") or descendant.Name == "FinishedProximityPrompt" then
+        descendant.HoldDuration = 0
+    end
+end)
