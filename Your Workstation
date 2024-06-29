@@ -7,7 +7,7 @@ local localPlayerName = string.upper(game.Players.LocalPlayer.Name)
 
 local kitchen = game.Workspace:FindFirstChild("Kitchen")
 if kitchen then
-   
+
     local workstationSpawns = kitchen:FindFirstChild("WorkstationSpawns")
     if workstationSpawns then
      
