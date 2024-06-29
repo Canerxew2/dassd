@@ -1,0 +1,15 @@
+local function createHighlight(player)
+    local character = player.Character or player.CharacterAdded:Wait()
+    local highlight = Instance.new("Highlight")
+    highlight.Parent = character
+end
+
+plrs.PlayerAdded:Connect(function(player)
+    player.CharacterAdded:Connect(function(character)
+        createHighlight(player)
+    end)
+
+    if player.Character then
+        createHighlight(player)
+    end
+end)
