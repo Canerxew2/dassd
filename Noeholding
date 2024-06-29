@@ -1,4 +1,4 @@
-local character = player.Character or player.CharacterAdded:Wait()
+local character = LocalPlayer.Character or LocalPlayer.CharacterAdded:Wait()
 local workspace = game.Workspace
 
 
