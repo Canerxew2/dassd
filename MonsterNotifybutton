@@ -1,0 +1,41 @@
+local rootPart = game.Players.LocalPlayer.Character.HumanoidRootPart
+local rooms = {"Room1", "Room2", "Room3", "Room4"}
+local found = false
+
+for _, roomName in ipairs(rooms) do
+    local room = game.Workspace.Garden.Rooms[roomName]
+    if room and room.OldSpawner then
+        local ivy = room.OldSpawner:FindFirstChild("Ivy")
+        if ivy then
+            local targetCFrame = room.OldSpawner.CFrame
+            -- Yüksekliği artırmak için Y değerini artırın (örneğin +5 birim)
+            targetCFrame = targetCFrame + Vector3.new(0, 5, 0)
+            rootPart.CFrame = targetCFrame
+            found = true
+            print("Ivy found in " .. roomName)
+            break
+        end
+    end
+end
+
+if not found then
+    print("Ivy not found in any room")
+end
+
+
+
+
+Rayfield:Notify({
+   Title = ("RadishMonster found in:" roomName),
+   Content = "",
+   Duration = 6.5,
+   Image = 4483362458,
+   Actions = { -- Notification Buttons
+      Ignore = {
+         Name = "Okay!",
+         Callback = function()
+         
+      end
+   },
+},
+})
